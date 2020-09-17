@@ -40,12 +40,14 @@ struct Node {
 
 void addSuffixInTree(Node *current, int start, int end, string str) {
   if (current->children.size() == 0) {
+    
     Node* newNode = new Node(start, end, current, current->distanceFromRoot + 1, false);
     current->children.push_back(newNode);
     if (!current->isRoot) {
       Node* newEmptyNode = new Node(-1, -1, current, current->distanceFromRoot + 1, true);
       current->children.push_back(newEmptyNode);
     }
+
   } else {
     bool found = false;
     for (Node *child : current->children) {
@@ -60,20 +62,15 @@ void addSuffixInTree(Node *current, int start, int end, string str) {
             break;
           }
           if (str[start + aux] != str[(child->indices.start) + aux]) {
-            
             Node* newNode = new Node((child->indices.start) + aux, end, child, child->distanceFromRoot + 1, false);
             child->children.push_back(newNode);
-
             child->indices.end = ((child->indices.start) + aux) - 1;
-
             addSuffixInTree(child, start+aux, end, str);
-
             break;
           } else {
             aux++;
           }
         }
-
         found = true;
         break;
       }
@@ -83,7 +80,6 @@ void addSuffixInTree(Node *current, int start, int end, string str) {
       Node* newNode = new Node(start, end, current, current->distanceFromRoot + 1, false);
       current->children.push_back(newNode);
     }
-
 
   }
 }
@@ -97,7 +93,7 @@ int main() {
     addSuffixInTree(&root, i, teste.length() - 1, teste);
   }
 
-  cout << root.children[4]->indices.start << " " << root.children[4]->indices.end << endl;
+  cout << root.children[3]->children[1]->indices.start << " " << root.children[3]->children[1]->indices.end << endl;
 
   return 0;
 }
