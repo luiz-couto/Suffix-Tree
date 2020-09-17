@@ -86,14 +86,19 @@ void addSuffixInTree(Node *current, int start, int end, string str) {
 
 int main() {
 
-  string teste = "minimize";
-  Node root = Node();
-
-  for(int i=(teste.length())-1; i>=0; i--) {
-    addSuffixInTree(&root, i, teste.length() - 1, teste);
+  string str;
+  string n;
+  while(cin >> n) {
+    str = str + n;
   }
 
-  cout << root.children[3]->children[1]->indices.start << " " << root.children[3]->children[1]->indices.end << endl;
+  Node root = Node();
+
+  for(int i=(str.length())-1; i>=0; i--) {
+    addSuffixInTree(&root, i, str.length() - 1, str);
+  }
+
+  
 
   return 0;
 }
