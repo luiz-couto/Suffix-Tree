@@ -84,6 +84,27 @@ void addSuffixInTree(Node *current, int start, int end, string str) {
   }
 }
 
+void findLongestRepeatedSubstring (Node *current, string *ans, string untilNow, string str) {
+  if (current->children.size() == 0) {
+    return;
+  }
+
+  for (Node *child : current->children) {
+    if (!child->isEmpty && child->children.size() != 0) {
+      string substr = str.substr(child->indices.start, ((child->indices.end - child->indices.start) + 1));
+      int length = (untilNow + substr).length();
+
+      if (length > ans->length()) {
+        *ans = untilNow + substr;
+      }
+
+      findLongestRepeatedSubstring(child, ans, untilNow + substr, str);
+    }
+
+  }
+
+}
+
 int main() {
 
   string str;
@@ -97,6 +118,10 @@ int main() {
   for(int i=(str.length())-1; i>=0; i--) {
     addSuffixInTree(&root, i, str.length() - 1, str);
   }
+
+  string ans = "";
+  findLongestRepeatedSubstring(&root, &ans, "", str);
+  cout << ans << endl;
 
   
 
