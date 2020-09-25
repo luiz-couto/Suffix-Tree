@@ -108,7 +108,10 @@ void findLongestRepeatedSubstring (Node *current, string *ans, string untilNow, 
 int main() {
 
   string str;
+  string firstLineNotUsed;
   string n;
+
+  getline(cin, firstLineNotUsed);
   while(cin >> n) {
     str = str + n;
   }
@@ -122,8 +125,6 @@ int main() {
   string ans = "";
   findLongestRepeatedSubstring(&root, &ans, "", str);
   cout << ans << endl;
-
-  
 
   return 0;
 }
